@@ -1,4 +1,5 @@
 import pandas as pd
+from PdfParser import PdfParser
 
 def parse_line_breaks_line(line):
     '''
@@ -33,7 +34,9 @@ def get_line_breaks_columns():
         "Cross/Distribution",
         "Ball Progression/Distribution"
     ]
-def parse_line_breaks_table(text):
+def parse_line_breaks_table(pdf_path, page):
+    pdf_parser = PdfParser(pdf_path)
+    text = pdf_parser.extract_text(page)
     lines = text.split('\n')
     team = ' '.join(lines[0].split(' ')[2:])
     data = list(map(parse_line_breaks_line, lines[20:-1]))
